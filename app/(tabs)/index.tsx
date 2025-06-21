@@ -1,9 +1,8 @@
-import { ScrollView, Text, View, TextInput, TouchableOpacity, Image, Dimensions } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import { Link, useRouter } from "expo-router";
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Image, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState, useEffect } from 'react';
-import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -85,9 +84,9 @@ export default function Index() {
         }}>
           Fresh Foods Market
         </Text>
-        <TouchableOpacity>
+        <Link href={"/cart"}>
           <FontAwesome name="shopping-cart" size={24} color="#181111" />
-        </TouchableOpacity>
+        </Link>
       </View>
 
       <ScrollView 
