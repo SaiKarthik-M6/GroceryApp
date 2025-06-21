@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # GroceryApp
 =======
 # Welcome to your Expo app 👋
