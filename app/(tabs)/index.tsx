@@ -1,75 +1,289 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, TextInput, TouchableOpacity, Image, Dimensions } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
+import { Link, useRouter } from "expo-router";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useEffect } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const { width } = Dimensions.get('window');
 
-export default function HomeScreen() {
+const CARD_WIDTH = width * 0.6;
+const CARD_SPACING = 16;
+
+
+export default function Index() {
+  const userName = "John";
+  const currentPoints = 1250;
+  const nextLevelPoints = 1500;
+  const progress = (currentPoints / nextLevelPoints) * 100;
+
+  const bannerAds = [
+    'Welcome to Fresh Foods Market!',
+    'Get 10% off on your first order!',
+    'Free delivery on orders over $50!',
+    'Check out our weekly deals!',
+  ];
+
+    // 2. State for current banner
+  const [bannerIndex, setBannerIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBannerIndex((prev) => (prev + 1) % bannerAds.length);
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [bannerAds.length]);
+
+  const featuredCategories = [
+    { name: 'Fruits', image: require('../../assets/images/categories/fruits.png') },
+    { name: 'Vegetables', image: require('../../assets/images/categories/veggies.png') },
+    { name: 'Dairy', image: require('../../assets/images/categories/dairy.png') },
+    { name: 'Spices', image: require('../../assets/images/categories/spices.webp') },
+  ];
+
+  const carouselItems = [
+    {
+      title: 'Farm Fresh Deals',
+      subtitle: 'Save on the freshest produce',
+      image: require('../../assets/images/carousel/groceryStore.jpg'),
+    },
+    {
+      title: 'Organic Selections',
+      subtitle: 'Healthy choices for a healthy you',
+      image: require('../../assets/images/carousel/grains.png'),
+    },
+    {
+      title: 'Seasonal Harvest',
+      subtitle: 'Enjoy the best of every season',
+      image: require('../../assets/images/carousel/grainy.jpeg'),
+    },
+  ];
+
+  const router = useRouter();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView 
+      edges={['top']} 
+      style={{ 
+        flex: 1,
+        backgroundColor: 'white',
+      }}
+    >
+      <View style={{ 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        backgroundColor: 'white',
+      }}>
+        <View style={{ width: 24 }} />
+        <Text style={{ 
+          fontSize: 18, 
+          fontWeight: 'bold',
+          color: '#181111',
+        }}>
+          Fresh Foods Market
+        </Text>
+        <TouchableOpacity>
+          <FontAwesome name="shopping-cart" size={24} color="#181111" />
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView 
+        style={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
+        {/* Search Bar Section */}
+        <View style={{ padding: 16 }}>
+          <View style={{ 
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#f4f0f0',
+            borderRadius: 12,
+            padding: 12,
+          }}>
+            <FontAwesome name="search" size={24} color="#886364" />
+            <TextInput
+              placeholder="Search for groceries"
+              style={{
+                flex: 1,
+                marginLeft: 8,
+                fontSize: 16,
+                color: '#181111',
+              }}
+              placeholderTextColor="#886364"
+            />
+          </View>
+        </View>
+
+        {/* Welcome Message + Purchase History Button */}
+        <View style={{ 
+  flexDirection: 'row', 
+  alignItems: 'center', 
+  justifyContent: 'space-between', 
+  paddingHorizontal: 16, 
+  marginBottom: 16 
+}}>
+  <Text style={{ 
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#181111',
+  }}>
+    Welcome, {userName}
+  </Text>
+  <Link href={"/purchaseHistory"}
+    style={{
+      backgroundColor: '#f4f0f0',
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 24,
+      alignItems: 'center',
+      marginLeft: 12,
+    }}
+  >
+    <Text style={{ 
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: '#181111',
+    }}>
+      Purchase History
+    </Text>
+  </Link>
+</View>
+
+
+        {/* Points Section */}
+        <View style={{ padding: 14 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+            <Text style={{ fontSize: 16, color: '#181111', fontWeight: '500' }}>
+              Your Points: {currentPoints.toLocaleString()}
+            </Text>
+          </View>
+          
+          <View style={{ 
+            height: 8,
+            backgroundColor: '#e5dcdc',
+            borderRadius: 4,
+            marginBottom: 8,
+          }}>
+            <View 
+              style={{
+                width: `${progress}%`,
+                height: '100%',
+                backgroundColor: '#181111',
+                borderRadius: 4,
+              }}
+            />
+          </View>
+          
+          <Text style={{ fontSize: 14, color: '#886364' }}>
+            Next Level: {nextLevelPoints.toLocaleString()}
+          </Text>
+        </View>
+    
+    
+    
+     {/* Banner Section */}
+      <View
+        style={{
+          marginHorizontal: 0,
+          marginTop: 10,
+          marginBottom: 16,
+          backgroundColor: '#0a5718',
+          minHeight: 20,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#ffffff', textAlign: 'center' }}>
+          {bannerAds[bannerIndex]}
+        </Text>
+      </View>
+
+
+      
+<ScrollView
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  contentContainerStyle={{
+    paddingHorizontal: (width - CARD_WIDTH) / 2,
+    paddingLeft: 16, // controls left space
+    // paddingRight: 16, // controls right space
+  }}
+>
+  {carouselItems.map((item, idx) => (
+    <View
+      key={item.title}
+      style={{
+        width: CARD_WIDTH,
+        marginRight: idx === carouselItems.length - 1 ? 0 : CARD_SPACING,
+        backgroundColor: '#f4f0f0',
+        borderRadius: 16,
+        overflow: 'hidden',
+      }}
+    >
+      <Image
+        source={item.image}
+        style={{ width: '100%', height: 100 }}
+        resizeMode="cover"
+      />
+      <View style={{ padding: 12 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 16, color: '#181111' }}>{item.title}</Text>
+        <Text style={{ color: '#886364', fontSize: 13 }}>{item.subtitle}</Text>
+      </View>
+    </View>
+  ))}
+</ScrollView>
+
+
+        {/* Featured Categories */}
+        <View style={{ padding: 16 }}>
+          <Text style={{ 
+            fontSize: 22,
+            fontWeight: 'bold',
+            color: '#181111',
+            marginBottom: 16,
+          }}>
+            Featured Categories
+          </Text>
+          
+          <View style={{ 
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+          }}>
+            {featuredCategories.map((category, index) => (
+              <View 
+                key={index}
+                style={{
+                  width: (width - 48) / 2,
+                  marginBottom: 16,
+                  alignItems: 'center',
+                }}
+              >
+                <Image
+                  source={category.image}                  style={{
+                    width: (width - 48) / 3,
+                    height: (width - 48) / 3,
+                    borderRadius: 12,
+                    marginBottom: 8,
+                    backgroundColor: '#f4f0f0',
+                  }}
+                  resizeMode="contain"
+                />
+                <Text style={{ 
+                  fontSize: 16,
+                  fontWeight: '500',
+                  color: '#181111',
+                }}>
+                  {category.name}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
