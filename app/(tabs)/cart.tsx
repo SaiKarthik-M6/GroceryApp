@@ -37,20 +37,6 @@ const cartItems = [
 			'https://lh3.googleusercontent.com/aida-public/AB6AXuALqo28cFlje3y7aKcPtq9w3E9jZZfzV4bW8DLadRvz8p9RYnT1myP_iTjc9AJEgyfuuEBJ4R-zO48VJbnM88LvmtlzDZOEwH5S1zpP3a-4gdgzlIgkDmMK0OKTi-l4JsjgVYN6Jl1h7B0sf28GPig6i8Rl89YD7JLbTIYUx5d2v395SGZ62YNtEOA3YpvvnZ7lSrTHCFHenIXYmM6FyUH_JNd2FrADsit8b6dxWOw_I2yr2rijx7lbZBKsSOC01LopMtYmCTsr4gl0',
 	},
 	{
-		name: 'Chicken Breast',
-		qty: 1,
-		price: 7.99,
-		image:
-			'https://lh3.googleusercontent.com/aida-public/AB6AXuDBHM3oe8cDAWBVCkrFX5Hd2X0IAUkatFi2esnQHRpbo_wdsOJ2fQ9kUCb37fj4zs5BcqCRYzim4-GlVCIY3jLO9JJXjKW_P5PairSIe7qOm8IrqfctIcrDbWsNB1Oq6ELDheUtpGiHeri5rd4HLkkABaRtmS8jtGzM-wiT9mtLA6HVcje-M5YDW2O0U95758BW5K1sSLSmwAmGXgo1FNYXfjrJ2sxn0A4yapPlme-I1Bmca7kXrimFO_kAUlVGbUARzdDUTIuiZYWU',
-	},
-	{
-		name: 'Salmon Fillet',
-		qty: 1,
-		price: 12.99,
-		image:
-			'https://lh3.googleusercontent.com/aida-public/AB6AXuCCE2Xazb_iSW1iUDeUggNflllLj-5m1aiuFXoia48DUzEKVb3FQcFuiWSmpOU-bLhcm2HpLhYPyFWBJpE3KyfA4NFnCIM6B8r3cWlyfQI922rw2U65ueIguHnd4IcOnoxKiKuaKEkQxP6el7ocmD2ZZoYr6NAwL6FNJvlugBmx1LhriE52VDIq_vR3-4j302Hp2BSlV9e7H11UtAieF1AONM3sbvuK-I1MKGNoTaWGxDxrC3VelWIzWfNapNWtVN-QDx0QAxZLMG8u',
-	},
-	{
 		name: 'Broccoli',
 		qty: 1,
 		price: 1.49,

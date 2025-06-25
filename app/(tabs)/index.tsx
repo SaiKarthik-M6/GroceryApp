@@ -1,7 +1,7 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from "expo-router";
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image, ScrollView, Text, TextInput, View } from "react-native";
+import { Dimensions, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
@@ -19,8 +19,8 @@ export default function Index() {
   const bannerAds = [
     'Welcome to Fresh Foods Market!',
     'Get 10% off on your first order!',
-    'Free delivery on orders over $50!',
     'Check out our weekly deals!',
+    'Buy 1 get 1 free on all Veer products!',
   ];
 
     // 2. State for current banner
@@ -56,9 +56,25 @@ export default function Index() {
       subtitle: 'Enjoy the best of every season',
       image: require('../../assets/images/carousel/grainy.jpeg'),
     },
+
+    {
+      title: 'Veer Products',
+      subtitle: 'Fresh, original, and delicious',
+      image: require('../../assets/images/carousel/veer.jpeg')
+    }
   ];
 
+  // State for carousel pagination
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+
   const router = useRouter();
+
+  // Handle scroll events to update current index
+  const handleScroll = (event: any) => {
+    const scrollPosition = event.nativeEvent.contentOffset.x;
+    const index = Math.round(scrollPosition / (CARD_WIDTH + CARD_SPACING));
+    setCurrentCarouselIndex(index);
+  };
 
   return (
     <SafeAreaView 
@@ -84,9 +100,14 @@ export default function Index() {
         }}>
           Fresh Foods Market
         </Text>
-        <Link href={"/cart"}>
-          <FontAwesome name="shopping-cart" size={24} color="#181111" />
-        </Link>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+          <TouchableOpacity onPress={() => router.push('/loginPage')}>
+            <Ionicons name="person" size={24} color="#181111" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('/cart')}>
+            <FontAwesome name="shopping-cart" size={24} color="#181111" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView 
@@ -118,7 +139,7 @@ export default function Index() {
 
         {/* Welcome Message + Purchase History Button */}
         <View style={{ 
-  flexDirection: 'row', 
+               flexDirection: 'row', 
   alignItems: 'center', 
   justifyContent: 'space-between', 
   paddingHorizontal: 16, 
@@ -131,7 +152,7 @@ export default function Index() {
   }}>
     Welcome, {userName}
   </Text>
-  <Link href={"/purchaseHistory"}
+  <Link href={"/favorites"}
     style={{
       backgroundColor: '#f4f0f0',
       paddingVertical: 8,
@@ -146,7 +167,7 @@ export default function Index() {
       fontWeight: 'bold',
       color: '#181111',
     }}>
-      Purchase History
+      Favorites
     </Text>
   </Link>
 </View>
@@ -154,14 +175,19 @@ export default function Index() {
 
         {/* Points Section */}
         <View style={{ padding: 14 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
             <Text style={{ fontSize: 16, color: '#181111', fontWeight: '500' }}>
               Your Points: {currentPoints.toLocaleString()}
             </Text>
+
+            <Text style={{ fontSize: 14, color: '#886364' }}>
+            Next Level: {nextLevelPoints.toLocaleString()}
+          </Text>
+
           </View>
           
           <View style={{ 
-            height: 8,
+            height: 6,
             backgroundColor: '#e5dcdc',
             borderRadius: 4,
             marginBottom: 8,
@@ -175,10 +201,6 @@ export default function Index() {
               }}
             />
           </View>
-          
-          <Text style={{ fontSize: 14, color: '#886364' }}>
-            Next Level: {nextLevelPoints.toLocaleString()}
-          </Text>
         </View>
     
     
@@ -187,15 +209,15 @@ export default function Index() {
       <View
         style={{
           marginHorizontal: 0,
-          marginTop: 10,
+          marginTop: 1,
           marginBottom: 16,
           backgroundColor: '#0a5718',
-          minHeight: 20,
+          minHeight: 30,
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <Text style={{ fontSize: 12, fontWeight: 'bold', color: '#ffffff', textAlign: 'center' }}>
+        <Text style={{ fontSize: 15, color: '#ffffff', textAlign: 'center' }}>
           {bannerAds[bannerIndex]}
         </Text>
       </View>
@@ -205,6 +227,8 @@ export default function Index() {
 <ScrollView
   horizontal
   showsHorizontalScrollIndicator={false}
+  onScroll={handleScroll}
+  scrollEventThrottle={16}
   contentContainerStyle={{
     paddingHorizontal: (width - CARD_WIDTH) / 2,
     paddingLeft: 16, // controls left space
@@ -234,6 +258,28 @@ export default function Index() {
     </View>
   ))}
 </ScrollView>
+
+{/* Pagination Dots */}
+<View style={{ 
+  flexDirection: 'row', 
+  justifyContent: 'center', 
+  alignItems: 'center',
+  marginTop: 16,
+  marginBottom: 8,
+}}>
+  {carouselItems.map((_, index) => (
+    <View
+      key={index}
+      style={{
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: index === currentCarouselIndex ? '#0a5718' : '#e5dcdc',
+        marginHorizontal: 4,
+      }}
+    />
+  ))}
+</View>
 
 
         {/* Featured Categories */}

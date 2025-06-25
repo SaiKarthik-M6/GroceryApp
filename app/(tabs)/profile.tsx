@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
+import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
@@ -39,13 +39,11 @@ export default function Profile() {
           {/* Profile Picture and Info */}
           <View style={styles.profileSection}>
             <Image
-              source={{
-                uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBufOj5xRVKSVocdEarbYG-6LY6d7Ez8f8vd1IYhCI_9gff3syfV9ynFIyfEBs5cPWpJEL7sdPO_gDJDFrQS8a8N4fCQKQUmPhPs-j_g_YlF2AgqyD8cwvew011EaBWgWqrJzspsjNHqUvl16EgVeckXVRcZxPzvcryvGqoBngP05XPlhUJBGDF7Y6WTqU5GI62q43HHlisM-D94W3HGe1412Tbd8SH5O9UQU_MEs0koj-nusN8pR_MsMhK-OpzI7W6Bv1bPlW3p2YS',
-              }}
+              source={require('../../assets/images/pf.avif')}
               style={styles.avatar}
             />
-            <Text style={styles.profileName}>Sophia Carter</Text>
-            <Text style={styles.profileSub}>Member since 2021</Text>
+            <Text style={styles.profileName}>John Walker</Text>
+            <Text style={styles.profileSub}>Member since 2024</Text>
           </View>
 
           {/* Rewards Section */}
